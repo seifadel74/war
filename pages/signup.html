@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - WARAQ</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar-container"></div>
+    <div class="container">
+        <h2>مرحبًا بك في WARAQ</h2>
+        <p>انضم إلينا واكتشف عوالم جديدة بين الكتب.</p>
+        <div class="auth-form">
+            <h3>إنشاء حساب جديد</h3>
+            <form id="signup-form">
+                <input type="text" placeholder="الاسم" aria-label="الاسم" required>
+                <input type="email" placeholder="البريد الإلكتروني" aria-label="البريد الإلكتروني" required>
+                <input type="password" placeholder="كلمة المرور" aria-label="كلمة المرور" required>
+                <button type="submit">إنشاء الحساب</button>
+            </form>
+            <p>هل لديك حساب؟ <a href="login.html">تسجيل الدخول</a></p>
+        </div>
+    </div>
+    <div id="footer-container"></div>
+    <script src="../assets/js/main.js" type="module" defer></script>
+    <script src="../assets/js/auth.js" type="module" defer></script>
+    <script>
+        fetch('../components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-container').innerHTML = data);
+    </script>
+</body>
+</html>
