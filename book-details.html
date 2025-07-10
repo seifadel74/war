@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تفاصيل الكتاب</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Navbar Styles */
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background-color: #1a1a1a;
+      color: #f2f2f2;
+      direction: rtl;
+    }
+
+    .navbar {
+      background-color: #222;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      z-index: 1000;
+      position: fixed;
+      width: 100%;
+      top: 0;
+    }
+
+    .search-container {
+      background-color: seashell;
+      border-radius: 15px;
+      padding: 5px 10px;
+      width: 190px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      border: 2px solid #0e6655;
+      position: relative;
+    }
+
+    .search-icon {
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      left: 10px;
+      cursor: pointer;
+    }
+
+    .search-box {
+      border: none;
+      background: none;
+      outline: none;
+      color: #222;
+      width: 200px;
+      font-size: 12px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      flex: 1;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      background: transparent;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+      color: #00ffcc;
+    }
+
+    .nav-item:hover {
+      background: #00bfa5;
+      color: #fff;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #05A099, #333);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      font-family: "Tajawal", sans-serif;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: whitesmoke;
+    }
+
+    .footer-links h3,
+    .footer-contact h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links ul li {
+      margin: 5px 0;
+    }
+
+    .footer-links ul li a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .footer-links ul li a:hover {
+      color: whitesmoke;
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .footer-social {
+      margin-top: 15px;
+    }
+
+    .social-icon {
+      display: inline-block;
+      margin: 5px;
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+      background: white;
+      color: #05A099;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .social-icon:hover {
+      background: #05A099;
+      color: white;
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #05A099;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+    }
+
+    .scroll-top:hover {
+      background: #33ff8f;
+      transform: scale(1.1);
+    }
+
+    .footer-bottom {
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 10px;
+      font-size: 14px;
+    }
+
+    .footer-bottom span {
+      color: #05A099;
+      font-weight: bold;
+    }
+
+    /* Book Page Content */
+    body {
+      background-color: #1a1a1a;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+      padding-top: 80px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .book-details-layout {
+      /* display: contents; */ /* No longer needed with new structure */
+    }
+
+    .left-column {
+      flex: 1;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .book-main-flex {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    .book-image-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .book-image {
+      width: 220px;
+      height: 330px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+    }
+    
+    .rating-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rating-display .stars {
+      font-size: 28px;
+      color: #555;
+    }
+    
+    .rating-display .stars .active {
+      color: #f39c12;
+    }
+    
+    .rating-display .rating-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .book-info-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .book-header-info h2 {
+      color: #00bfa5;
+      margin: 0 0 24px 0;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: right;
+      width: 100%;
+    }
+
+    .book-info {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px 16px;
+      width: 100%;
+    }
+
+    .book-info span {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #e0e0e0;
+      text-align: right;
+    }
+
+    .book-info span:nth-child(odd) {
+      font-weight: bold;
+      color: #00bfa5;
+    }
+
+    .description-section {
+      padding-top: 24px;
+      border-top: 1px solid #444;
+    }
+    
+    .description-section h3 {
+      color: #00bfa5;
+      font-size: 1.8rem;
+      margin: 0 0 12px 0;
+      text-align: right;
+    }
+
+    .description-section p {
+      color: #ccc;
+      font-size: 1rem;
+      line-height: 1.8;
+      text-align: right;
+    }
+    
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: #252525;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      align-self: flex-start;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    
+    .sidebar-logo {
+      width: 120px;
+    }
+
+    .sidebar h3 {
+      color: #e0e0e0;
+      font-size: 1.2rem;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .rating {
+      display: flex;
+      gap: 8px;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    
+    .rating span {
+      color: #555;
+      transition: color 0.2s;
+    }
+
+    .rating span:hover,
+    .rating span.active {
+      color: #f39c12;
+    }
+
+    .download-share {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .favorite-btn {
+      background-color: transparent;
+      color: #e0e0e0;
+      border: 2px solid #00bfa5;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .favorite-btn:hover {
+      background-color: #00bfa5;
+      color: #fff;
+    }
+
+    .favorite-btn.active {
+      background-color: #e74c3c;
+      border-color: #e74c3c;
+      color: #fff;
+    }
+    
+    .favorite-btn.active .fa-heart:before {
+      content: "\f004"; /* solid heart */
+      font-weight: 900;
+    }
+
+    .download-btn {
+      background-color: transparent;
+      color: #e0e0e0;
+      border: 2px solid #00bfa5;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .download-btn:hover {
+      background-color: #00bfa5;
+      color: #fff;
+    }
+
+    .share-title {
+      border-top: 1px solid #444;
+      padding-top: 20px;
+    }
+
+    .share-btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .share-btn {
+      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+      background: #333;
+      color: #00bfa5;
+      text-align: center;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .share-btn:hover {
+      background: #00bfa5;
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    /* Comments Section */
+    .comments-section {
+      width: 100%;
+      flex-basis: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px;
+      border-radius: 12px;
+      background: #252525;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    
+    .comments-section h3 {
+      font-size: 1.8rem;
+      color: #00bfa5;
+      margin: 0 0 16px 0;
+      text-align: right;
+    }
+
+    .comment-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background-color: #383838;
+      color: #fff;
+      margin-bottom: 12px;
+      resize: vertical;
+      box-sizing: border-box;
+      min-height: 100px;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .submit-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .submit-comment {
+      background-color: #00bfa5;
+      color: #fff;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .submit-comment:hover {
+      background-color: #00a790;
+    }
+    
+    .comments-title {
+      border-top: 1px solid #444;
+      padding-top: 24px;
+    }
+
+    .comment {
+      margin-top: 20px;
+      padding: 16px;
+      background-color: #333;
+      border-radius: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .comment .user-avatar img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .comment .comment-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comment .comment-body .username {
+      font-weight: bold;
+      color: #00bfa5;
+      font-size: 1.1rem;
+    }
+    
+    .comment .comment-body .user-title {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    .comment .comment-body .comment-text {
+      color: #e0e0e0;
+      margin: 8px 0;
+      display: block;
+    }
+
+    .comment .comment-body .timestamp {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+    
+    @media (max-width: 1200px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .left-column, .sidebar, .comments-section {
+        width: 100%;
+        max-width: 700px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .book-main-flex {
+        flex-direction: column;
+        align-items: center;
+      }
+      .book-info-col {
+        align-items: center;
+      }
+      .book-header-info h2, .book-info, .description-section h3, .description-section p {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 900px) {
+      /* This is an old rule, removing it by overwriting */
+    }
+
+    /* Toast Styles - Redesigned */
+    .toast-container {
+      position: fixed;
+      top: 120px;
+      right: 25px;
+      z-index: 10001;
+      max-width: 380px;
+    }
+
+    .toast {
+      background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+      border: 2px solid;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+      transform: translateX(400px);
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      backdrop-filter: blur(15px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toast::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--toast-color), var(--toast-color-light));
+      border-radius: 15px 15px 0 0;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .toast-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .toast-title {
+      font-weight: 700;
+      color: var(--toast-color);
+      font-size: 15px;
+      text-shadow: 0 0 10px var(--toast-color);
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .toast-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .toast-message {
+      color: #e0e0e0;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .toast.success {
+      --toast-color: #4CAF50;
+      --toast-color-light: #66BB6A;
+    }
+
+    .toast.error {
+      --toast-color: #F44336;
+      --toast-color-light: #EF5350;
+    }
+
+    .toast.info {
+      --toast-color: #2196F3;
+      --toast-color-light: #42A5F5;
+    }
+
+    .toast.warning {
+      --toast-color: #FF9800;
+      --toast-color-light: #FFB74D;
+    }
+
+    /* Responsive Alert Design */
+    @media (max-width: 768px) {
+      .toast-container {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        top: 100px;
+      }
+
+      .toast {
+        padding: 18px;
+        border-radius: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .toast {
+        padding: 25px 20px;
+      }
+    }
+
+    /* Alert Focus Styles */
+    .toast-close:focus {
+      outline: 2px solid var(--toast-color);
+      outline-offset: 2px;
+    }
+
+    /* Alert Loading State */
+    .toast.loading .toast-title {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Smooth scrolling for better UX */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #00ffcc, #00bfa5);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #33ff8f, #00ffcc);
+    }
+
+    /* Footer Profile Button Functionality */
+    .footer-profile-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .footer-profile-btn {
+      background: linear-gradient(135deg, #00ffcc, #00bfa5);
+      color: #111;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .footer-profile-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .footer-profile-btn:hover::before {
+      left: 100%;
+    }
+
+    .footer-profile-btn:hover {
+      background: linear-gradient(135deg, #33ff8f, #00ffcc);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 255, 204, 0.5);
+    }
+
+    .footer-profile-btn i {
+      font-size: 20px;
+      color: #111;
+    }
+
+    .footer-profile-btn .profile-text {
+      font-weight: 600;
+      color: #111;
+    }
+
+    /* Footer Profile Button Animation */
+    .footer-profile-btn {
+      animation: footerProfilePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes footerProfilePulse {
+      0%, 100% {
+        box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+      }
+      50% {
+        box-shadow: 0 4px 20px rgba(0, 255, 204, 0.6);
+      }
+    }
+
+    /* Responsive Footer Profile Button */
+    @media (max-width: 768px) {
+      .footer-profile-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 15px 20px;
+        font-size: 18px;
+      }
+
+      .footer-profile-btn i {
+        font-size: 22px;
+      }
+    }
+
+    #customToast {
+      display: none;
+      position: fixed;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 260px;
+      max-width: 90vw;
+      background: #22b07d;
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 18px;
+      z-index: 9999;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      font-family: inherit;
+      opacity: 0;
+      transition: opacity 0.4s, top 0.4s;
+      text-align: center;
+      font-weight: bold;
+    }
+    #customToast.toast-success { background: #22b07d; }
+    #customToast.toast-error   { background: #e74c3c; }
+    #customToast.toast-info    { background: #2196f3; }
+  </style>
+</head>
+<body>
+  <script src="script.js"></script>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="search-container">
+      <input type="text" class="search-box" placeholder="بحث...">
+      <img src="images/search1.gif.gif" alt="بحث" class="search-icon">
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-item"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="books.html" class="nav-item" target="_blank"><i class="fas fa-book-open"></i> أقسام الكتب</a>
+      <a href="novels.html" class="nav-item" target="_blank"><i class="fas fa-feather-alt"></i> أقسام الروايات</a>
+      <a href="stories.html" class="nav-item" target="_blank"><i class="fas fa-scroll"></i> أقسام القصص</a>
+      <a href="references.html" class="nav-item" target="_blank"><i class="fas fa-clipboard"></i> المراجع</a>
+      <a href="authors.html" class="nav-item" target="_blank"><i class="fas fa-users"></i> المؤلفون</a>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container book-details-layout">
+    <div class="left-column">
+      <div class="main-content">
+        <div class="book-main-flex">
+          <div class="book-image-col">
+            <img id="bookImage" class="book-image" src="" alt="غلاف الكتاب">
+            <div class="rating-display">
+              <div id="displayRating" class="stars">☆☆☆☆☆</div>
+              <div id="rating" class="rating-number">0.0</div>
+            </div>
+          </div>
+          <div class="book-info-col">
+            <div class="book-header-info">
+              <h2 id="bookTitle"></h2>
+              <div class="book-info">
+                <span>المؤلف:</span> <span id="author"></span>
+                <span>القسم:</span> <span id="category"></span>
+                <span>اللغة:</span> <span id="language"></span>
+                <span>الصفحات:</span> <span id="pages"></span>
+                <span>حجم الملف:</span> <span id="size"></span>
+                <span>نوع الملف:</span> <span id="format"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="description-section">
+          <h3>وصف الكتاب</h3>
+          <p id="description"></p>
+        </div>
+      </div>
+      <div class="comments-section" id="commentsSection">
+        <div class="comment-input-area">
+          <h3>اكتب تعليقك هنا....</h3>
+          <textarea class="comment-input" id="commentInput" placeholder="اكتب تعليقك هنا..."></textarea>
+          <div class="submit-container">
+            <button class="submit-comment" onclick="submitComment()">تعليق</button>
+          </div>
+        </div>
+        <div class="comments-list">
+          <h3 class="comments-title">المزيد من التعليقات</h3>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <img src="images/logo.png" alt="Digital Literature Library System" class="sidebar-logo">
+      <h3>قيّم هذا الكتاب</h3>
+      <div class="rating" id="userRating">
+        <span data-value="1">☆</span>
+        <span data-value="2">☆</span>
+        <span data-value="3">☆</span>
+        <span data-value="4">☆</span>
+        <span data-value="5">☆</span>
+      </div>
+      <div class="download-share">
+        <button class="favorite-btn" onclick="toggleFavorite()">
+          <i class="far fa-heart"></i> <span>إضافة للمفضلة</span>
+        </button>
+        <button class="download-btn" onclick="downloadBook()">
+          <i class="fas fa-download"></i> تحميل الكتاب
+        </button>
+        <h3 class="share-title">شارك هذا الكتاب</h3>
+        <div class="share-btns">
+          <button class="share-btn" onclick="share('linkedin')"><i class="fab fa-linkedin-in"></i></button>
+          <button class="share-btn" onclick="share('whatsapp')"><i class="fab fa-whatsapp"></i></button>
+          <button class="share-btn" onclick="share('twitter')"><i class="fab fa-twitter"></i></button>
+          <button class="share-btn" onclick="share('facebook')"><i class="fab fa-facebook-f"></i></button>
+          <button class="share-btn" onclick="share('general')"><i class="fas fa-share-alt"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <h2 class="footer-title">Digital Literature Library System</h2>
+        <p>اكتشف آلاف الكتب الإلكترونية واستمتع بتجربة قراءة ممتعة.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h3>روابط سريعة</h3>
+        <ul>
+          <li><a href="#">الرئيسية</a></li>
+          <li><a href="books.html">الكتب</a></li>
+          <li><a href="aboutus.html">من نحن</a></li>
+          <li><a href="contacts.html">اتصل بنا</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h3>تواصل معنا</h3>
+        <p><i class="fas fa-envelope"></i> info@library.com</p>
+        <p><i class="fas fa-phone"></i>0000000</p>
+        <p><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</p>                                                 
+      </div>
+    </div>
+
+    <button id="scrollTop" class="scroll-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="footer-bottom">
+      <p>جميع الحقوق محفوظة © 2025 | <span>Digital Literature Library System</span></p>
+    </div>
+  </footer>
+
+  <script>
+    const displayRating = document.getElementById('displayRating');
+    const ratingNumber = document.getElementById('rating');
+    const userRatingStars = document.getElementById('userRating').children;
+    const bookTitle = document.getElementById('bookTitle');
+    const bookImage = document.getElementById('bookImage');
+    const author = document.getElementById('author');
+    const category = document.getElementById('category');
+    const language = document.getElementById('language');
+    const pages = document.getElementById('pages');
+    const size = document.getElementById('size');
+    const format = document.getElementById('format');
+    const description = document.getElementById('description');
+    const commentInput = document.getElementById('commentInput');
+    const commentsSection = document.getElementById('commentsSection');
+
+    // Extract itemId from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemId = urlParams.get('id');
+    if (!itemId) {
+      bookTitle.innerText = 'خطأ: معرف العنصر مفقود';
+    }
+
+    // Fetch item data
+    function fetchBookData() {
+      console.log("Fetching item with ID:", itemId);
+      if (!itemId) {
+        bookTitle.innerText = 'خطأ: معرف العنصر مفقود';
+        description.innerText = 'يرجى استخدام رابط مثل book-details.html?id=1';
+        return;
+      }
+
+      checkFavoriteStatus(); // Check favorite status on page load
+
+      // Try fetching from API
+      fetch(`http://127.0.0.1:8000/api/books/show/${itemId}`)
+        .then(response => {
+          if (!response.ok) throw new Error('فشل في جلب بيانات العنصر');
+          return response.json();
+        })
+        .then(data => {
+          console.log("API data:", data);
+          renderItemData(data.book);
+          fetchComments(itemId);
+        })
+        .catch(error => {
+          console.error('Error fetching item data:', error);
+          // Fallback to mock data
+          if (mockItemDetails[itemId]) {
+            console.log("Using mock data for ID:", itemId);
+            renderItemData(mockItemDetails[itemId]);
+            fetchComments(itemId);
+          } else {
+            bookTitle.innerText = 'خطأ: العنصر غير موجود';
+            description.innerText = 'لا يوجد عنصر بهذا المعرف. جرب معرفًا آخر.';
+          }
+        });
+    }
+
+    // Render item data
+    function renderItemData(data) {
+      bookTitle.innerText = data.title || 'عنوان العنصر غير متوفر';
+      bookImage.src = data.image || 'images/default-book.png';
+      bookImage.onerror = function() { this.onerror=null; this.src='images/default-book.png'; };
+      author.innerText = data.author || 'غير معروف';
+      category.innerText = data.category || 'غير محدد';
+      language.innerText = data.language || 'غير محدد';
+      pages.innerText = data.pages || 'غير محدد';
+      size.innerText = data.size || 'غير محدد';
+      format.innerText = data.format || 'غير محدد';
+      description.innerText = data.description || 'لا يوجد وصف متاح';
+      ratingNumber.innerText = data.rating ? data.rating.toFixed(1) : '0.0';
+      updateDisplayRating(data.rating || 0);
+      highlightUserStars(data.rating || 0);
+
+      // Adjust text direction for LTR languages
+      if (data.language && data.language.toLowerCase().includes('english')) {
+        bookTitle.style.direction = 'ltr';
+        author.style.direction = 'ltr';
+      }
+    }
+
+    // Update display rating
+    function updateDisplayRating(rating) {
+      const rounded = Math.round(rating);
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        stars += `<span class="${i <= rounded ? 'active' : ''}">` + (i <= rounded ? '★' : '☆') + '</span>';
+      }
+      displayRating.innerHTML = stars;
+    }
+
+    // Highlight user stars on click
+    function highlightUserStars(rating) {
+      Array.from(userRatingStars).forEach((star, idx) => {
+        if (idx < Math.round(rating)) {
+          star.classList.add('active');
+        } else {
+          star.classList.remove('active');
+        }
+      });
+    }
+
+    // Handle user rating
+    Array.from(userRatingStars).forEach(star => {
+      star.addEventListener('click', () => {
+        const value = parseInt(star.getAttribute('data-value'));
+        if (!itemId) return;
+        let userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+        if (!userId) {
+          return;
+        }
+        highlightUserStars(value);
+        ratingNumber.innerText = value.toFixed(1);
+        updateDisplayRating(value);
+        fetch(`http://127.0.0.1:8000/api/rating/create`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            book_id: itemId,
+            user_id: userId,
+            rating: value
+          })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('فشل في إرسال التقييم');
+          return response.json();
+        })
+        .then(() => {
+          showToast('تم تسجيل تقييمك بنجاح!', 'success');
+        })
+        .catch(error => {
+          console.error('Error submitting rating:', error);
+          if (mockItemDetails[itemId]) {
+            mockItemDetails[itemId].rating = ((mockItemDetails[itemId].rating || 0) * 9 + value) / 10;
+            ratingNumber.innerText = mockItemDetails[itemId].rating.toFixed(1);
+            updateDisplayRating(mockItemDetails[itemId].rating);
+          }
+          showToast('حدث خطأ أثناء العملية', 'error');
+        });
+      });
+    });
+
+    // Fetch comments
+    function fetchComments(itemId) {
+      if (!itemId) return;
+      // Clear only comment items, preserve input and button
+      const commentsContainer = commentsSection;
+      // Remove all child nodes except the first two (textarea and button)
+      while (commentsContainer.children.length > 2) {
+        commentsContainer.removeChild(commentsContainer.lastChild);
+      }
+
+      fetch(`http://127.0.0.1:8000/api/comment/getBookCommentsInfo/${itemId}`)
+        .then(response => {
+          if (!response.ok) throw new Error('فشل في جلب التعليقات');
+          return response.json();
+        })
+        .then(data => {
+          // البيانات تأتي بهذا الشكل: { message: "...", comments: [...] }
+          let comments = Array.isArray(data.comments) ? data.comments : [];
+          if (comments.length === 0) {
+            // Add mock comments if no real comments
+            const mockComments = [
+              { username: 'Katana-des', userTitle: 'موظفة جامعية', text: 'ياه يكريم بص الرواية حلوة بس مو كانك حبيت منة؟؟', timestamp: 'منذ 5 دقائق' },
+              { username: 'ميمونه الجندي', userTitle: 'طالبه', text: 'لايك لايك لايك ❤️', timestamp: 'منذ ساعة' }
+            ].reverse(); // Reverse to add them in correct order
+            mockComments.forEach(comment => addCommentToSection(comment));
+          } else {
+            comments.reverse().forEach(comment => addCommentToSection({
+              username: comment.user ? comment.user.name : 'مستخدم مجهول',
+              userTitle: 'عضو',
+              text: comment.comment,
+              timestamp: comment.created_at ? new Date(comment.created_at).toLocaleString('ar-EG') : 'غير محدد',
+              userImage: comment.user ? comment.user.profile_photo_url : null
+            }));
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching comments:', error);
+          // Add mock comments on error
+          const mockComments = [
+            { username: 'Katana-des', userTitle: 'موظفة جامعية', text: 'ياه يكريم بص الرواية حلوة بس مو كانك حبيت منة؟؟', timestamp: 'منذ 5 دقائق' },
+            { username: 'ميمونه الجندي', userTitle: 'طالبه', text: 'لايك لايك لايك ❤️', timestamp: 'منذ ساعة' }
+          ].reverse(); // Reverse to add them in correct order
+          mockComments.forEach(comment => addCommentToSection(comment));
+        });
+    }
+
+    function addCommentToSection(comment) {
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'comment';
+      commentDiv.innerHTML = `
+        <div class="user-avatar">
+          <img src="${comment.userImage || 'avatar/1.jpg'}" alt="مستخدم">
+        </div>
+        <div class="comment-body">
+          <span class="username">${comment.username}</span>
+          <span class="user-title">${comment.userTitle || ''}</span>
+          <span class="comment-text">${comment.text}</span>
+        </div>
+      `;
+      const titleElement = document.querySelector('.comments-title');
+      if (titleElement) {
+        titleElement.after(commentDiv);
+      } else {
+        commentsSection.appendChild(commentDiv);
+      }
+    }
+
+    // Submit comment
+    function submitComment() {
+      const commentInput = document.getElementById('commentInput');
+      const commentText = commentInput.value.trim();
+      if (!itemId || !commentText) return;
+      let username = localStorage.getItem('username') || sessionStorage.getItem('username') || 'مستخدم حالي';
+      fetch(`http://127.0.0.1:8000/api/comment/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          comment: commentText,
+          book_id: itemId,
+          username: username,
+          timestamp: new Date().toISOString()
+        })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('فشل في إرسال التعليق');
+        return response.json();
+      })
+      .then(() => {
+        commentInput.value = '';
+        showToast('تم إرسال تعليقك بنجاح!', 'success');
+        fetchComments(itemId);
+      })
+      .catch(error => {
+        console.error('Error submitting comment:', error);
+        showToast('حدث خطأ أثناء العملية', 'error');
+      });
+    }
+
+    // Download Item Function
+    function downloadBook() {
+      if (!itemId) return;
+      if (mockItemDetails[itemId]) {
+        window.location.href = mockItemDetails[itemId].file_url;
+      } else {
+        window.open(`http://127.0.0.1:8000/api/book/${itemId}/download`, '_blank');
+      }
+    }
+
+    // Share Function
+    function share(platform) {
+      if (!itemId) return;
+      const url = window.location.href;
+      const title = document.getElementById('bookTitle').innerText;
+      switch (platform) {
+        case 'linkedin':
+          window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, '_blank');
+          break;
+        case 'whatsapp':
+          window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(title)}%20${encodeURIComponent(url)}`, '_blank');
+          break;
+        case 'twitter':
+          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+          break;
+        case 'facebook':
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+          break;
+        case 'general':
+          if (navigator.share) {
+            navigator.share({
+              title: title,
+              url: url
+            }).catch(error => console.error('Error sharing:', error));
+          } else {
+            console.error('المشاركة غير مدعومة في هذا المتصفح');
+          }
+          break;
+      }
+    }
+
+    // Initial fetch
+    fetchBookData();
+
+    // Footer Profile Button Functionality
+    function handleFooterProfileClick() {
+      const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+      const username = localStorage.getItem('username') || sessionStorage.getItem('username');
+      
+      if (!userId) {
+        console.warn('يجب تسجيل الدخول أولاً للوصول إلى صفحة البروفايل');
+        
+        // Redirect to login page after 2 seconds
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+      } else {
+        // User is logged in, show success message and redirect
+        console.log(`مرحباً ${username || 'المستخدم'}! جاري الانتقال إلى البروفايل...`);
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1500);
+      }
+    }
+
+    // Update footer profile button based on login status
+    function updateFooterProfileButton() {
+      const footerProfileBtn = document.querySelector('.footer-profile-btn');
+      const profileText = document.querySelector('.profile-text');
+      const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+      const username = localStorage.getItem('username') || sessionStorage.getItem('username');
+      
+      if (footerProfileBtn && profileText) {
+        if (userId) {
+          // User is logged in
+          profileText.textContent = username || 'البروفايل';
+          footerProfileBtn.style.background = 'linear-gradient(135deg, #4CAF50, #66BB6A)';
+          footerProfileBtn.title = `مرحباً ${username || 'المستخدم'}! انقر للوصول إلى البروفايل`;
+        } else {
+          // User is not logged in
+          profileText.textContent = 'تسجيل الدخول';
+          footerProfileBtn.style.background = 'linear-gradient(135deg, #FF9800, #FFB74D)';
+          footerProfileBtn.title = 'انقر لتسجيل الدخول';
+        }
+      }
+    }
+
+    // Update footer profile button on page load
+    updateFooterProfileButton();
+
+    // Listen for storage changes to update footer button
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'userId' || e.key === 'username') {
+        updateFooterProfileButton();
+      }
+    });
+
+    // Fetch book rating
+    fetch(`http://127.0.0.1:8000/api/rating/getBookRating/${itemId}`)
+      .then(response => response.json())
+      .then(data => {
+        ratingNumber.innerText = data.rating ? data.rating.toFixed(1) : '0.0';
+        updateDisplayRating(data.rating || 0);
+      });
+
+    function showToast(message, type = 'success') {
+      let toast = document.getElementById('customToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'customToast';
+        document.body.appendChild(toast);
+      }
+      toast.className = '';
+      toast.classList.add('toast-' + type);
+      toast.textContent = message;
+      toast.style.display = 'block';
+      toast.style.opacity = '1';
+      toast.style.top = '32px';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.top = '0px';
+        setTimeout(() => { toast.style.display = 'none'; toast.style.top = '32px'; }, 400);
+      }, 2200);
+    }
+
+    // Favorite functionality
+    let isFavorite = false;
+
+    function updateFavoriteButton() {
+      const favButton = document.querySelector('.favorite-btn');
+      const favButtonText = favButton.querySelector('span');
+      if (isFavorite) {
+        favButton.classList.add('active');
+        favButtonText.textContent = 'إزالة من المفضلة';
+      } else {
+        favButton.classList.remove('active');
+        favButtonText.textContent = 'إضافة للمفضلة';
+      }
+    }
+
+    async function checkFavoriteStatus() {
+      const userId = localStorage.getItem('userId');
+      if (!itemId || !userId) return;
+
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/favorites`, {
+          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        });
+        if (!response.ok) throw new Error('Failed to fetch favorites');
+        
+        const favorites = await response.json();
+        isFavorite = favorites.some(fav => fav.book_id == itemId);
+        updateFavoriteButton();
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    }
+
+    async function toggleFavorite() {
+      const userId = localStorage.getItem('userId');
+      console.log('toggleFavorite called', { itemId, userId, token: localStorage.getItem('token') });
+      if (!itemId || !userId) {
+        showToast('يجب تسجيل الدخول أولاً', 'error');
+        return;
+      }
+      
+      const isCurrentlyFavorite = isFavorite;
+      const method = isCurrentlyFavorite ? 'DELETE' : 'POST';
+      const endpoint = isCurrentlyFavorite ? `http://127.0.0.1:8000/api/favorites/${itemId}` : `http://127.0.0.1:8000/api/favorites`;
+      
+      const options = {
+        method: method,
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+        }
+      };
+
+      if (!isCurrentlyFavorite) {
+        options.body = JSON.stringify({ book_id: itemId });
+      }
+
+      try {
+        const response = await fetch(endpoint, options);
+        const data = await response.json();
+
+        if (response.ok) {
+          isFavorite = !isCurrentlyFavorite;
+          updateFavoriteButton();
+          showToast(data.message, 'success');
+        } else {
+          showToast(data.message || 'حدث خطأ ما', 'error');
+        }
+      } catch (error) {
+        console.error('Error toggling favorite:', error);
+        showToast('فشل الاتصال بالخادم', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

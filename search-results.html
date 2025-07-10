@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>نتائج البحث - WARAQ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+    body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background-color: #1a1a1a;
+    color: #f2f2f2;
+    direction: rtl;
+    }
+
+    .navbar {
+    background-color: #222;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    z-index: 1000;
+    }
+
+    .search-container {
+    background-color: seashell;
+    border-radius: 15px;
+    padding: 5px 10px;
+    width: 190px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #0e6655;
+    position: relative;
+    }
+
+    .search-icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 10px;
+    cursor: pointer;
+    }
+
+    .search-box {
+    border: none;
+    background: none;
+    outline: none;
+    color: #222;
+    width: 200px;
+    font-size: 12px;
+    }
+
+    .nav-links {
+    display: flex;
+    gap: 15px;
+    flex: 1;
+    justify-content: center;
+    flex-wrap: wrap;
+    }
+
+    .nav-item {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    background: linear-gradient(45deg, #222, #222);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeIn 0.5s ease-in-out forwards;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+      color: #00ffcc;
+    }
+
+    .nav-item:hover {
+      background: linear-gradient(45deg, #00bfa5, #00897b);
+      transform: scale(1.1) translateX(5px);
+    }
+
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0;
+      height: 3px;
+      background-color: #ffffff;
+      transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+    }
+
+    .nav-item:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .search-results {
+      padding: 40px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+
+    .search-results h2 {
+      font-size: 1.8rem;
+      color: #00b894;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-results h2 span {
+      color: #fff;
+    }
+
+    .results-grid {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-left: auto;
+      margin-right: auto;
+      width: fit-content;
+      gap: 1.2rem;
+    }
+
+.book-card {
+  background: #232b2b;
+  border: 2.5px solid #00e6e6;
+  border-radius: 18px;
+  padding: 1.2rem 1rem 1.2rem 1rem;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 6px 24px rgba(0, 255, 255, 0.10), 0 2px 8px rgba(0,0,0,0.13);
+  min-height: 420px;
+  max-width: 250px;
+  min-width: 200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.book-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 14px;
+  margin-bottom: 1.2rem;
+  /* border: 2px solid #00e6e6; */
+  background: #232b2b;
+  box-shadow: 0 2px 12px rgba(0, 255, 255, 0.08);
+}
+
+.book-card h3 {
+  font-size: 1.15rem;
+  margin: 0 0 1.1rem 0;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+}
+
+.book-card p {
+  font-size: 1rem;
+  margin-bottom: 0.7rem;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.book-card button {
+  display: none;
+}
+
+.book-card:hover {
+  transform: translateY(-7px) scale(1.012);
+  box-shadow: 0 18px 40px rgba(0, 255, 153, 0.10), 0 8px 32px rgba(0,0,0,0.18);
+  border-color: #00ff99;
+}
+
+.book-card:hover img {
+  transform: scale(1.04);
+  box-shadow: 0 10px 28px rgba(0, 255, 153, 0.10);
+  border-color: #00ff99;
+}
+
+.book-card:hover h3 {
+  color: #fff;
+}
+
+.book-card:hover p {
+  color: #e0e0e0;
+}
+
+.book-card button:hover {
+  background: linear-gradient(135deg, #00cc7a, #00a085);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 18px rgba(0, 255, 153, 0.18);
+}
+
+.book-card button:active {
+  transform: scale(0.98);
+}
+
+    .book-card .favorite-btn {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      padding: 0.8rem;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .book-card .favorite-btn:hover {
+      background: linear-gradient(135deg, #ff5252, #d32f2f);
+      transform: scale(1.1);
+    }
+
+    .book-card .book-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.5rem 0;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    .book-card .book-stats span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .book-card .book-stats i {
+      color: #00ff99;
+    }
+
+    #no-results {
+      font-size: 1.2rem;
+      color: #ff5733;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .spinner {
+      font-size: 1.2rem;
+      color: #00b894;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #05A099, #333);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      font-family: "Tajawal", sans-serif;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: whitesmoke;
+    }
+
+    .footer-links h3,
+    .footer-contact h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links ul li {
+      margin: 5px 0;
+    }
+
+    .footer-links ul li a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .footer-links ul li a:hover {
+      color: whitesmoke;
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .footer-social {
+      margin-top: 15px;
+    }
+
+    .social-icon {
+      display: inline-block;
+      margin: 5px;
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+      background: white;
+      color: #05A099;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .social-icon:hover {
+      background: #05A099;
+      color: white;
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #05A099;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+    }
+
+    .scroll-top:hover {
+      background: #33ff8f;
+      transform: scale(1.1);
+    }
+
+    .footer-bottom {
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 10px;
+      font-size: 14px;
+    }
+
+    .footer-bottom span {
+      color: #05A099;
+      font-weight: bold;
+    }
+
+    @media (max-width: 900px) {
+      .book-card {
+        min-height: 340px;
+        max-width: 180px;
+        padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+      }
+      .book-card img {
+        height: 140px;
+        border-radius: 10px;
+      }
+      .book-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.7rem;
+      }
+      .book-card p {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .book-card {
+        min-height: 200px;
+        padding: 0.7rem;
+        border-radius: 14px;
+      }
+      .book-card img {
+        height: 80px;
+        border-radius: 8px;
+        margin-bottom: 0.7rem;
+      }
+      .book-card h3 {
+        font-size: 1rem;
+      }
+      .book-card p {
+        font-size: 0.85rem;
+        margin-bottom: 0.7rem;
+      }
+      .book-card button {
+        min-width: 90px;
+        padding: 0.5rem 0.7rem;
+        font-size: 0.85rem;
+      }
+    }
+    
+    /* تحسينات إضافية للكارد */
+    .book-card:nth-child(odd) {
+      animation-delay: 0.1s;
+    }
+    
+    .book-card:nth-child(even) {
+      animation-delay: 0.2s;
+    }
+    
+    .book-card:nth-child(3n) {
+      animation-delay: 0.3s;
+    }
+    
+    /* تأثير التحميل */
+    .loading-skeleton {
+      background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+    
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    .details-btn {
+      display: block;
+      background: linear-gradient(135deg, #00ff99, #00b894);
+      color: #1a1a1a;
+      font-weight: 700;
+      font-size: 0.97rem;
+      border: none;
+      padding: 0.7rem 2.2rem;
+      border-radius: 22px;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(0, 255, 153, 0.13);
+      margin: 0.7rem auto 0.2rem auto;
+      min-width: 140px;
+      max-width: 80%;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .details-btn:hover {
+      background: linear-gradient(135deg, #00cc7a, #00a085);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 6px 18px rgba(0, 255, 153, 0.18);
+      color: #fff;
+    }
+</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="search-container">
+      <input type="text" class="search-box" placeholder="بحث...">
+      <img src="images/search1.gif.gif" alt="بحث" class="search-icon">
+    </div>
+    <div class="nav-links">
+      <a href="references.html" class="nav-item" target="_blank"><i class="fas fa-clipboard"></i> المراجع</a>
+      <a href="authors.html" class="nav-item" target="_blank"><i class="fas fa-users"></i> المؤلفون</a>
+      <a href="stories.html" class="nav-item" target="_blank"><i class="fas fa-scroll"></i> أقسام القصص</a>
+      <a href="novels.html" class="nav-item" target="_blank"><i class="fas fa-feather-alt"></i> أقسام الروايات</a>
+      <a href="books.html" class="nav-item" target="_blank"><i class="fas fa-book-open"></i> أقسام الكتب</a>
+      <a href="index.html" class="nav-item"><i class="fas fa-home"></i> الرئيسية</a>
+    </div>
+  </nav>
+
+  <section class="search-results">
+    <h2>نتائج البحث عن: <span id="search-query"></span></h2>
+    <div id="results-container" class="results-grid" aria-live="polite"></div>
+    <p id="no-results" style="display: none;">لا توجد نتائج مطابقة.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <h2 class="footer-title">WARAQ</h2>
+        <p>اكتشف آلاف الكتب الإلكترونية واستمتع بتجربة قراءة ممتعة.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <h3>تواصل معنا</h3>
+        <p><i class="fas fa-envelope"></i> info@library.com</p>
+        <p><i class="fas fa-phone"></i> 0000000</p>
+        <p><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</p>
+      </div>
+    </div>
+    <button id="scrollTop" class="scroll-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <div class="footer-bottom">
+      <p>جميع الحققوق محفوظة © 2025 | <span>WARAQ</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // جلب query من الرابط
+      const urlParams = new URLSearchParams(window.location.search);
+      const query = urlParams.get("q");
+      const searchQueryEl = document.getElementById("search-query");
+      const resultsContainer = document.getElementById("results-container");
+      const noResultsEl = document.getElementById("no-results");
+
+      if (query) {
+        searchQueryEl.textContent = decodeURIComponent(query);
+        displaySearchResults(query, resultsContainer, noResultsEl);
+      } else {
+        noResultsEl.style.display = "block";
+      }
+    });
+
+    async function displaySearchResults(query, container, noResultsEl) {
+      // مؤشر تحميل
+      container.innerHTML = "<div class='spinner'>جاري التحميل...</div>";
+
+      try {
+        // استبدل هذا برابط الـ API الفعلي
+        const SEARCH_API_ENDPOINT = "http://127.0.0.1:8000/api/books/search";
+        const response = await fetch(`${SEARCH_API_ENDPOINT}?q=${encodeURIComponent(query)}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            // أضف مفتاح API إذا لزم:
+            // "Authorization": "Bearer YOUR_API_KEY"
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`خطأ من السيرفر: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const books = data.results || []; // افترض إن الـ API بيرجع results
+
+        if (books.length > 0) {
+          container.innerHTML = "";
+          books.forEach(book => {
+            const bookDiv = document.createElement("div");
+            bookDiv.classList.add("book-card");
+            bookDiv.innerHTML = `
+              <img src="${sanitizeHTML(book.image)}" alt="${sanitizeHTML(book.title)}" loading="lazy">
+              <h3>${sanitizeHTML(book.title)}</h3>
+              <p>${sanitizeHTML(book.author)}</p>
+              <a href="book-details.html?id=${book.id}" class="details-btn">عرض التفاصيل</a>
+            `;
+            container.appendChild(bookDiv);
+          });
+        } else {
+          noResultsEl.style.display = "block";
+        }
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+        noResultsEl.textContent = "حدث خطأ أثناء البحث. حاول مرة أخرى.";
+        noResultsEl.style.display = "block";
+      }
+
+      // تنظيف النصوص لمنع XSS
+      function sanitizeHTML(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      // بيانات محلية كبديل مؤقت
+      /*
+      const booksData = [
+        { title: "كتاب 1", author: "المؤلف 1", img: "images/bookr1.png" },
+        { title: "كتاب 2", author: "المؤلف 2", img: "images/bookr2.jpg" },
+        { title: "كتاب 3", author: "المؤلف 3", img: "images/bookr3.jpg" },
+        { title: "كتاب 4", author: "المؤلف 1", img: "images/bookr4.jpg" },
+        { title: "كتاب 5", author: "المؤلف 2", img: "images/bookr5.jpg" }
+      ];
+      const filteredBooks = booksData.filter(book =>
+        book.title.toLowerCase().includes(query.toLowerCase()) ||
+        book.author.toLowerCase().includes(query.toLowerCase())
+      );
+      if (filteredBooks.length > 0) {
+        container.innerHTML = "";
+        filteredBooks.forEach(book => {
+          const bookDiv = document.createElement("div");
+          bookDiv.classList.add("book-card");
+          bookDiv.innerHTML = `
+            <img src="${book.img}" alt="${book.title}" loading="lazy">
+            <h3>${book.title}</h3>
+            <p>${book.author}</p>
+            <button>عرض الكتاب</button>
+          `;
+          container.appendChild(bookDiv);
+        });
+      } else {
+        noResultsEl.style.display = "block";
+      }
+      */
+    }
+  </script>
+</body>
+</html>

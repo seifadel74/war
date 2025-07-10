@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار البحث - Digital Literature Library System</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #1a1a1a;
+            color: #f2f2f2;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #00b894;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .results {
+            margin-top: 20px;
+        }
+        
+        .book-item {
+            background-color: #333;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #00b894;
+        }
+        
+        .book-title {
+            color: #00b894;
+            font-weight: bold;
+        }
+        
+        .book-author {
+            color: #ccc;
+            font-size: 14px;
+        }
+        
+        .test-info {
+            background-color: #444;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>اختبار وظيفة البحث المحسنة</h1>
+        
+        <div class="test-info">
+            <h3>ميزات البحث المحسنة:</h3>
+            <ul>
+                <li>البحث يعمل مع الأحرف الكبيرة والصغيرة</li>
+                <li>البحث بالحرف الأول من العنوان أو اسم المؤلف</li>
+                <li>البحث في كلمات العنوان المنفصلة</li>
+                <li>البحث في كلمات اسم المؤلف المنفصلة</li>
+            </ul>
+        </div>
+        
+        <input type="text" class="search-box" placeholder="اكتب للبحث (مثال: كتاب، قصة، فلسفي، كاتب...)">
+        
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        // بيانات اختبار
+        const testBooks = [
+            { title: "كتاب الفلسفة الإسلامية", author: "أحمد محمد" },
+            { title: "قصة قصيرة", author: "فاطمة علي" },
+            { title: "رواية تاريخية", author: "محمد أحمد" },
+            { title: "كتاب علمي", author: "د. سارة خالد" },
+            { title: "فلسفة العقل", author: "د. علي حسن" },
+            { title: "قصص الأطفال", author: "نور الدين" },
+            { title: "تاريخ الإسلام", author: "أحمد بن علي" },
+            { title: "علم النفس الحديث", author: "د. فاطمة أحمد" },
+            { title: "أدب عربي", author: "محمد بن أحمد" },
+            { title: "فن الكتابة", author: "سارة محمد" }
+        ];
+
+        // دالة البحث المحسنة
+        function enhancedSearch(books, searchQuery) {
+            if (!searchQuery || searchQuery.trim() === '') {
+                return books;
+            }
+
+            const query = searchQuery.trim().toLowerCase();
+            
+            return books.filter(book => {
+                const title = (book.title || '').toLowerCase();
+                const author = (book.author || '').toLowerCase();
+                
+                // البحث بالكلمة الكاملة (أحرف كبيرة أو صغيرة)
+                if (title.includes(query) || author.includes(query)) {
+                    return true;
+                }
+                
+                // البحث بالحرف الأول من العنوان
+                if (title.startsWith(query)) {
+                    return true;
+                }
+                
+                // البحث بالحرف الأول من اسم المؤلف
+                if (author.startsWith(query)) {
+                    return true;
+                }
+                
+                // البحث في كلمات العنوان المنفصلة
+                const titleWords = title.split(/\s+/);
+                if (titleWords.some(word => word.startsWith(query))) {
+                    return true;
+                }
+                
+                // البحث في كلمات اسم المؤلف المنفصلة
+                const authorWords = author.split(/\s+/);
+                if (authorWords.some(word => word.startsWith(query))) {
+                    return true;
+                }
+                
+                return false;
+            });
+        }
+
+        // عرض النتائج
+        function displayResults(books) {
+            const resultsDiv = document.getElementById('results');
+            
+            if (books.length === 0) {
+                resultsDiv.innerHTML = '<p style="color: #ff5733;">لا توجد نتائج مطابقة.</p>';
+                return;
+            }
+            
+            resultsDiv.innerHTML = books.map(book => `
+                <div class="book-item">
+                    <div class="book-title">${book.title}</div>
+                    <div class="book-author">${book.author}</div>
+                </div>
+            `).join('');
+        }
+
+        // إضافة مستمع الأحداث للبحث
+        document.querySelector('.search-box').addEventListener('input', function(e) {
+            const query = e.target.value;
+            const filteredBooks = enhancedSearch(testBooks, query);
+            displayResults(filteredBooks);
+        });
+
+        // عرض جميع الكتب عند التحميل
+        displayResults(testBooks);
+    </script>
+</body>
+</html> 

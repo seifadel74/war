@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأوراق النظرية - Digital Literature Library System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            line-height: 1.6;
+            color: #333;
+            background-color: #222;
+        }
+
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #222;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-container {
+            background-color: seashell;
+            border-radius: 15px;
+            padding: 5px 10px;
+            width: 190px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            border: 2px solid #0e6655;
+            position: relative;
+        }
+
+        .search-icon {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            left: 10px;
+            cursor: pointer;
+        }
+
+        .search-box {
+            border: none;
+            background: none;
+            outline: none;
+            color: #222;
+            width: 100%;
+            font-size: 12px;
+            padding-left: 40px; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(45deg, #222, #222);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .nav-item:hover {
+            background: linear-gradient(45deg, #00bfa5, #00897b);
+            transform: scale(1.1) translateX(5px);
+        }
+
+        .nav-item::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background-color: #ffffff;
+            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+            animation: pulse 0.2s ease-in-out;
+        }
+
+        .nav-item i {
+            font-size: 18px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 20px;
+            margin-top: 60px; /* Offset for fixed navbar */
+            text-align: center;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        .hero h1 {
+            color: #05A099;
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .hero p {
+            color: #05A099;
+            font-size: 20px;
+            margin: 10px 0 0;
+        }
+
+        /* Papers Section */
+        .papers-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .papers-section h2 {
+            font-size: 28px;
+            color: #05A099;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .papers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        .paper-card:nth-child(1) { animation-delay: 0.2s; }
+        .paper-card:nth-child(2) { animation-delay: 0.3s; }
+        .paper-card:nth-child(3) { animation-delay: 0.4s; }
+        .paper-card:nth-child(4) { animation-delay: 0.5s; }
+        .paper-card:nth-child(5) { animation-delay: 0.6s; }
+        .paper-card:nth-child(6) { animation-delay: 0.7s; }
+
+        .paper-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .paper-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .paper-card-content {
+            padding: 15px;
+            text-align: right;
+        }
+
+        .paper-card-content h3 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin: 0 0 10px;
+        }
+
+        .paper-card-content p {
+            font-size: 16px;
+            color: #666;
+            margin: 0 0 15px;
+        }
+
+        .paper-card-content a {
+            display: inline-block;
+            background: #05A099;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .paper-card-content a:hover {
+            background: #048080;
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            text-align: center;
+            color: #ff4d4d;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #05A099, #333);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            font-family: "Tajawal", sans-serif;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-content,
+        .footer-links,
+        .footer-contact {
+            flex: 1;
+            padding: 0 20px;
+            min-width: 200px;
+        }
+
+        .footer-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: whitesmoke;
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin: 5px 0;
+        }
+
+        .footer-links ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: whitesmoke;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        .footer-social {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background: white;
+            color: #05A099;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #05A099;
+            color: white;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 10px;
+            font-size: 14px;
+        }
+
+        .footer-bottom span {
+            color: #05A099;
+            font-weight: bold;
+        }
+
+        /* Scroll Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #05A099;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .scroll-top:hover {
+            background: #048080;
+            transform: scale(1.1);
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .papers-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-item {
+                font-size: 16px;
+                padding: 8px;
+            }
+            .papers-section h2 {
+                font-size: 24px;
+            }
+            .paper-card-content h3 {
+                font-size: 18px;
+            }
+        }
+
+        /* Accessibility */
+        a:focus,
+        button:focus {
+            outline: 3px solid #05A099;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="بحث...">
+            <img src="images/search1.gif.gif" alt="بحث" class="search-icon">
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i> الرئيسية</a>
+            <a href="books.html" class="nav-item" target="_blank"><i class="fas fa-book-open"></i> أقسام الكتب</a>
+            <a href="novels.html" class="nav-item" target="_blank"><i class="fas fa-feather-alt"></i> أقسام الروايات</a>
+            <a href="stories.html" class="nav-item" target="_blank"><i class="fas fa-scroll"></i> أقسام القصص</a>
+            <a href="references.html" class="nav-item" target="_blank"><i class="fas fa-clipboard"></i> المراجع</a>
+            <a href="authors.html" class="nav-item" target="_blank"><i class="fas fa-users"></i> المؤلفون</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>الأوراق النظرية</h1>
+        <p>استكشف الأوراق النظرية العميقة والملهمة في مكتبة Digital Literature Library System</p>
+    </section>
+
+    <!-- Papers Section -->
+    <section class="papers-section" aria-labelledby="papers-title">
+        <div id="papers-container" class="papers-container">
+            <!-- Paper cards will be dynamically inserted here -->
+        </div>
+        <div id="error-message" class="error-message" role="alert" style="display: none;">
+            عذرًا، حدث خطأ أثناء جلب الأوراق. حاول مرة أخرى لاحقًا.
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <h2 class="footer-title">Digital Literature Library System</h2>
+                <p>اكتشف آلاف الكتب الإلكترونية واستمتع بتجربة قراءة ممتعة.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="books.html">الكتب</a></li>
+                    <li><a href="aboutus.html">من نحن</a></li>
+                    <li><a href="contacts.html">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>تواصل معنا</h3>
+                <p><i class="fas fa-envelope"></i> info@library.com</p>
+                <p><i class="fas fa-phone"></i> 0000000</p>
+                <p><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</p>
+            </div>
+        </div>
+        <button id="scrollTop" class="scroll-top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة © 2025 | <span>Digital Literature Library System</span></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Smooth scroll for anchor links
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 60,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Add active class to current nav link
+            const currentPath = window.location.pathname.split('/').pop() || 'theoretical-papers.html';
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll Top Button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Animate elements on scroll
+            const animatedElements = document.querySelectorAll('.papers-section, .footer');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animatedElements.forEach(element => {
+                element.classList.add('animate-on-scroll');
+                observer.observe(element);
+            });
+
+            // Fetch theoretical papers from backend API
+            const papersContainer = document.getElementById('papers-container');
+            const errorMessage = document.getElementById('error-message');
+
+            // Mock data for theoretical papers
+            const mockPapers = [
+                {
+                    id: 1,
+                    title: "نظرية المعرفة",
+                    author: "باحث 1",
+                    cover_image: "theory1.jpg",
+                    details_url: "book-details.html?id=13"
+                },
+                {
+                    id: 2,
+                    title: "فلسفة العقل",
+                    author: "باحث 2",
+                    cover_image: "theory2.jpg",
+                    details_url: "book-details.html?id=14"
+                },
+                {
+                    id: 3,
+                    title: "أسس المنطق",
+                    author: "باحث 3",
+                    cover_image: "theory3.jpg",
+                    details_url: "book-details.html?id=15"
+                },
+                {
+                    id: 4,
+                    title: "الجماليات والفن",
+                    author: "باحث 4",
+                    cover_image: "theory4.jpg",
+                    details_url: "book-details.html?id=16"
+                }
+            ];
+
+            /**
+             * Render paper cards
+             * @param {Array} papers - Array of paper objects
+             */
+            function renderPapers(papers) {
+                papersContainer.innerHTML = '';
+                papers.forEach(paper => {
+                    const paperCard = document.createElement('div');
+                    paperCard.className = 'paper-card';
+                    paperCard.setAttribute('role', 'article');
+                    paperCard.setAttribute('aria-labelledby', `paper-title-${paper.id}`);
+                    paperCard.innerHTML = `
+                        <img src="${paper.cover_image}" alt="غلاف ورقة ${paper.title}" loading="lazy">
+                        <div class="paper-card-content">
+                            <h3 id="paper-title-${paper.id}">${paper.title}</h3>
+                            <p>${paper.author}</p>
+                            <a href="${paper.details_url}" aria-label="عرض تفاصيل ورقة ${paper.title}">عرض التفاصيل</a>
+                        </div>
+                    `;
+                    papersContainer.appendChild(paperCard);
+                });
+            }
+
+            /**
+             * Fetch theoretical papers from API
+             */
+            async function fetchPapers() {
+                try {
+                    // Replace with actual API endpoint for theoretical papers
+                    const API_ENDPOINT = 'http://your-streamlit-app.com/api/theoretical-papers'; // INSERT API URL HERE
+                    const response = await fetch(API_ENDPOINT, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                            // Add Authorization header if needed, e.g.:
+                            // 'Authorization': 'Bearer YOUR_API_KEY'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`خطأ من السيرفر: ${response.status}`);
+                    }
+
+                    const papersData = await response.json();
+                    if (papersData.length === 0) {
+                        throw new Error('لا توجد أوراق متاحة');
+                    }
+
+                    // Modify details_url to point to book-details.html
+                    const modifiedPapers = papersData.map(paper => ({
+                        ...paper,
+                        details_url: `book-details.html?id=${paper.id}`
+                    }));
+
+                    renderPapers(modifiedPapers);
+                } catch (error) {
+                    console.error('Error fetching theoretical papers:', error);
+                    errorMessage.style.display = 'block';
+                    // Fallback to mock data
+                    renderPapers(mockPapers);
+                }
+            }
+
+            // Initial fetch
+            fetchPapers();
+        });
+    </script>
+</body>
+</html>

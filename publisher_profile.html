@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الناشر - Digital Literature Library System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body, html {
+            min-height: 100vh;
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(44, 44, 44, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover {
+            color: #00b894;
+        }
+
+        .navbar .brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00b894;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #00b894;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #ccc;
+        }
+
+        .form-box {
+            background: rgba(44, 44, 44, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        .form-box h2 {
+            color: #00b894;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .form-grid .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-box .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-box label {
+            display: block;
+            font-size: 14px;
+            color: #bbb;
+            margin-bottom: 5px;
+        }
+
+        .form-box input[type="text"],
+        .form-box input[type="number"],
+        .form-box input[type="file"],
+        .form-box textarea,
+        .form-box select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+        }
+
+        .form-box textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-box select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: left 10px center;
+            padding-left: 30px;
+        }
+
+        .form-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00b894;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .form-box button:hover {
+            background-color: #019874;
+        }
+
+        .cover-preview {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .cover-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .books-section {
+            margin-top: 30px;
+        }
+
+        .books-section h2 {
+            color: #00b894;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .book-card {
+            background: #2c2c2c;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 184, 148, 0.3);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .book-card h3 {
+            color: #00b894;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .book-card .category {
+            font-size: 14px;
+            color: #bbb;
+            margin-bottom: 10px;
+        }
+
+        .book-card p {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .book-card .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .book-card button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .book-card button.edit {
+            background-color: #00b894;
+            color: white;
+        }
+
+        .book-card button.edit:hover {
+            background-color: #019874;
+        }
+
+        .book-card button.delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .book-card button.delete:hover {
+            background-color: #c0392b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding-top: 100px;
+        }
+
+        .modal-content {
+            background: rgba(44, 44, 44, 0.9);
+            backdrop-filter: blur(10px);
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            animation: zoomIn 0.5s ease;
+        }
+
+        .close {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover, .close:focus {
+            color: #00b894;
+        }
+
+        .modal-content h2 {
+            color: #00b894;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .modal-content .form-group {
+            margin-bottom: 15px;
+        }
+
+        .modal-content label {
+            display: block;
+            font-size: 14px;
+            color: #bbb;
+            margin-bottom: 5px;
+        }
+
+        .modal-content input,
+        .modal-content textarea,
+        .modal-content select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: #333;
+            border: none;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .modal-content select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: left 10px center;
+            padding-left: 30px;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00b894;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .modal-content button:hover {
+            background-color: #019874;
+        }
+
+        @keyframes fadeIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .form-box {
+                padding: 20px;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .book-card img {
+                height: 150px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="brand">Digital Literature Library System</a>
+        <div>
+            <a href="index.html">الصفحة الرئيسية</a>
+            <a href="#" onclick="logout()">تسجيل الخروج</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>لوحة تحكم الناشر</h1>
+            <p>أضف كتبك الجديدة وأدر مكتبتك بسهولة وسرعة</p>
+        </div>
+
+        <div class="form-box">
+            <h2>نشر كتاب جديد</h2>
+            <form id="publishBookForm" class="form-grid">
+                <div class="form-group">
+                    <label for="title">عنوان الكتاب</label>
+                    <input type="text" name="title" id="title" placeholder="أدخل عنوان الكتاب" required>
+                </div>
+                <div class="form-group">
+                    <label for="author">المؤلف</label>
+                    <input type="text" name="author" id="author" placeholder="أدخل اسم المؤلف" required>
+                </div>
+                <div class="form-group">
+                    <label for="published_year">سنة النشر</label>
+                    <input type="number" name="published_year" id="published_year" placeholder="أدخل سنة النشر" required>
+                </div>
+                <div class="form-group">
+                    <label for="language">اللغة</label>
+                    <input type="text" name="language" id="language" placeholder="أدخل لغة الكتاب" required>
+                </div>
+                <div class="form-group">
+                    <label for="pages">عدد الصفحات</label>
+                    <input type="number" name="pages" id="pages" placeholder="أدخل عدد الصفحات" required>
+                </div>
+                <div class="form-group">
+                    <label for="size">حجم الملف (MB)</label>
+                    <input type="number" step="0.1" name="size" id="size" placeholder="أدخل حجم الملف" required>
+                </div>
+                <div class="form-group">
+                    <label for="format">الصيغة</label>
+                    <input type="text" name="format" id="format" value="PDF" readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="mainCategory">القسم الرئيسي</label>
+                    <select name="mainCategory" id="mainCategory" required>
+                        <option value="" disabled selected>اختر القسم الرئيسي</option>
+                        <option value="books">كتب</option>
+                        <option value="novels">روايات</option>
+                        <option value="references">مراجع</option>
+                        <option value="authors">مؤلفون</option>
+                        <option value="stories">قصص</option>
+                    </select>
+                </div>
+                <div class="form-group" id="subCategoryGroup" style="display: none;">
+                    <label for="subCategory">التصنيف الفرعي</label>
+                    <select name="subCategory" id="subCategory"></select>
+                </div>
+                <div class="form-group">
+                    <label for="description">وصف الكتاب</label>
+                    <textarea name="description" id="description" placeholder="أدخل وصفًا مختصرًا للكتاب" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="coverImage">صورة الغلاف (JPEG/PNG)</label>
+                    <input type="file" name="coverImage" id="coverImage" accept="image/jpeg,image/png" required>
+                    <div class="cover-preview">
+                        <img id="coverPreview" alt="معاينة الغلاف">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bookFile">ملف الكتاب (PDF)</label>
+                    <input type="file" name="bookFile" id="bookFile" accept=".pdf" required>
+                </div>
+                <button type="submit"><i class="fas fa-upload"></i> نشر الكتاب</button>
+            </form>
+        </div>
+
+        <div class="books-section">
+            <h2>الكتب المنشورة</h2>
+            <div class="books-grid" id="booksList">
+                <!-- الكتب تُضاف ديناميكيًا -->
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال تعديل الكتاب -->
+    <div id="editBookModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeEditModal">×</span>
+            <h2>تعديل الكتاب</h2>
+            <form id="editBookForm">
+                <input type="hidden" name="bookId" id="editBookId">
+                <div class="form-group">
+                    <label for="editTitle">عنوان الكتاب</label>
+                    <input type="text" name="title" id="editTitle" placeholder="أدخل عنوان الكتاب" required>
+                </div>
+                <div class="form-group">
+                    <label for="editAuthor">المؤلف</label>
+                    <input type="text" name="author" id="editAuthor" placeholder="أدخل اسم المؤلف" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPublishedYear">سنة النشر</label>
+                    <input type="number" name="published_year" id="editPublishedYear" placeholder="أدخل سنة النشر" required>
+                </div>
+                <div class="form-group">
+                    <label for="editLanguage">اللغة</label>
+                    <input type="text" name="language" id="editLanguage" placeholder="أدخل لغة الكتاب" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPages">عدد الصفحات</label>
+                    <input type="number" name="pages" id="editPages" placeholder="أدخل عدد الصفحات" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSize">حجم الملف (MB)</label>
+                    <input type="number" step="0.1" name="size" id="editSize" placeholder="أدخل حجم الملف" required>
+                </div>
+                <div class="form-group">
+                    <label for="editFormat">الصيغة</label>
+                    <input type="text" name="format" id="editFormat" value="PDF" readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="editMainCategory">القسم الرئيسي</label>
+                    <select name="mainCategory" id="editMainCategory" required>
+                        <option value="" disabled>اختر القسم الرئيسي</option>
+                        <option value="books">كتب</option>
+                        <option value="novels">روايات</option>
+                        <option value="references">مراجع</option>
+                        <option value="authors">مؤلفون</option>
+                        <option value="stories">قصص</option>
+                    </select>
+                </div>
+                <div class="form-group" id="editSubCategoryGroup" style="display: none;">
+                    <label for="editSubCategory">التصنيف الفرعي</label>
+                    <select name="subCategory" id="editSubCategory"></select>
+                </div>
+                <div class="form-group">
+                    <label for="editDescription">وصف الكتاب</label>
+                    <textarea name="description" id="editDescription" placeholder="أدخل وصفًا مختصرًا للكتاب" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editCoverImage">صورة الغلاف (JPEG/PNG، اختياري)</label>
+                    <input type="file" name="coverImage" id="editCoverImage" accept="image/jpeg,image/png">
+                    <div class="cover-preview">
+                        <img id="editCoverPreview" alt="معاينة الغلاف">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="editBookFile">ملف الكتاب (PDF، اختياري)</label>
+                    <input type="file" name="bookFile" id="editBookFile" accept=".pdf">
+                </div>
+                <button type="submit"><i class="fas fa-save"></i> حفظ التعديلات</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // تعريف الأقسام والتصنيفات الفرعية
+        const categories = {
+            books: [
+                { value: 'literary', text: 'الكتب الأدبية' },
+                { value: 'religious', text: 'الكتب الدينية' },
+                { value: 'historical', text: 'الكتب التاريخية' },
+                { value: 'philosophical', text: 'الكتب الفلسفية' },
+                { value: 'self_development', text: 'الكتب التنموية وتطوير الذات' }
+            ],
+            novels: [
+                { value: 'crime', text: 'الروايات البوليسية والجريمة' },
+                { value: 'fantasy_sci_fi', text: 'الروايات الفانتازيا والخيال العلمي' },
+                { value: 'historical_novels', text: 'الروايات التاريخية' },
+                { value: 'psychological', text: 'الروايات النفسية' },
+                { value: 'horror_mystery', text: 'روايات الرعب والغموض' }
+            ],
+            references: [
+                { value: 'scientific_papers', text: 'الأوراق البحثية العلمية' },
+                { value: 'scientific_reviews', text: 'المراجعات العلمية' },
+                { value: 'technical_reports', text: 'التقارير الفنية' },
+                { value: 'theoretical_papers', text: 'الأوراق النظرية' }
+            ],
+            authors: [],
+            stories: [
+                { value: 'classic_short', text: 'قصص قصيرة كلاسيكية' },
+                { value: 'contemporary_short', text: 'قصص قصيرة معاصرة' },
+                { value: 'fictional_short', text: 'قصص قصيرة خيالية' },
+                { value: 'realistic_short', text: 'قصص قصيرة واقعية' },
+                { value: 'children_short', text: 'قصص قصيرة للأطفال' }
+            ]
+        };
+
+        // دالة لتحديث التصنيفات الفرعية
+        function updateSubCategories(mainCategorySelect, subCategorySelect, subCategoryGroup, selectedSubCategory = '') {
+            const mainCategory = mainCategorySelect.value;
+            subCategorySelect.innerHTML = '<option value="" disabled selected>اختر التصنيف الفرعي</option>';
+            if (categories[mainCategory] && categories[mainCategory].length > 0) {
+                categories[mainCategory].forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub.value;
+                    option.textContent = sub.text;
+                    subCategorySelect.appendChild(option);
+                });
+                subCategoryGroup.style.display = 'block';
+                if (selectedSubCategory) {
+                    subCategorySelect.value = selectedSubCategory;
+                }
+            } else {
+                subCategoryGroup.style.display = 'none';
+            }
+        }
+
+        // دالة لتحويل القسم والتصنيف الفرعي إلى نص واضح
+        function getCategoryDisplay(mainCategory, subCategory) {
+            const mainCategoryText = {
+                books: 'كتب',
+                novels: 'روايات',
+                references: 'مراجع',
+                authors: 'مؤلفون',
+                stories: 'قصص'
+            }[mainCategory] || 'غير محدد';
+
+            if (!subCategory || !categories[mainCategory] || categories[mainCategory].length === 0) {
+                return `القسم: ${mainCategoryText}`;
+            }
+
+            const subCategoryText = categories[mainCategory].find(sub => sub.value === subCategory)?.text || 'غير محدد';
+            return `القسم: ${mainCategoryText} - ${subCategoryText}`;
+        }
+
+        // دالة لمعاينة صورة الغلاف
+        function previewCoverImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
+        // دالة لإضافة كتاب إلى القائمة
+        function addBookToList(book) {
+            const booksList = document.getElementById('booksList');
+            const bookCard = document.createElement('div');
+            bookCard.className = 'book-card';
+            bookCard.dataset.id = book.id;
+            bookCard.innerHTML = `
+                <img src="${book.image || 'https://via.placeholder.com/200'}" alt="${book.title}">
+                <h3>${book.title}</h3>
+                <div class="category">${getCategoryDisplay(book.mainCategory, book.subCategory)}</div>
+                <p>${book.description.substring(0, 80)}${book.description.length > 80 ? '...' : ''}</p>
+                <div class="actions">
+                    <button class="edit" onclick="openEditModal(${book.id}, '${book.title}', '${book.author}', '${book.description}', '${book.image}', '${book.mainCategory}', '${book.subCategory}', '${book.published_year}', '${book.language}', '${book.pages}', '${book.size}', '${book.format}')"><i class="fas fa-edit"></i> تعديل</button>
+                    <button class="delete" onclick="deleteBook(${book.id})"><i class="fas fa-trash"></i> حذف</button>
+                </div>
+            `;
+            booksList.appendChild(bookCard);
+        }
+
+        // دالة لتحميل قائمة الكتب
+        async function loadBooks() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/books', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById('booksList').innerHTML = '';
+                    // data.books.forEach(book => addBookToList(book));
+                    data.books.slice(0, 5).forEach(book => addBookToList(book));
+                    if (!data.books.length) {
+                        document.getElementById('booksList').innerHTML = '<p style="color: #bbb; text-align: center;">لم يتم نشر كتب بعد.</p>';
+                    }
+                } else {
+                    alert(`⚠️ ${data.message || "خطأ في تحميل الكتب."}`);
+                }
+            } catch (error) {
+                alert("⚠️ حدث خطأ. حاول مرة أخرى.");
+            }
+        }
+
+        // تحديث التصنيفات الفرعية في نموذج النشر
+        document.getElementById('mainCategory').addEventListener('change', function() {
+            updateSubCategories(
+                document.getElementById('mainCategory'),
+                document.getElementById('subCategory'),
+                document.getElementById('subCategoryGroup')
+            );
+        });
+
+        // نشر كتاب جديد
+        document.getElementById('publishBookForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value.trim();
+            const author = document.getElementById('author').value.trim();
+            const published_year = document.getElementById('published_year').value.trim();
+            const language = document.getElementById('language').value.trim();
+            const pages = document.getElementById('pages').value.trim();
+            const size = document.getElementById('size').value.trim();
+            const format = document.getElementById('format').value.trim();
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subCategory = document.getElementById('subCategory').value;
+            const description = document.getElementById('description').value.trim();
+            const coverImage = document.getElementById('coverImage').files[0];
+            const bookFile = document.getElementById('bookFile').files[0];
+
+            if (!title || title.length < 3) {
+                alert("⚠️ عنوان الكتاب يجب أن يكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!author || author.length < 3) {
+                alert("⚠️ اسم المؤلف يجب أن يكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!published_year || published_year.length < 4) {
+                alert("⚠️ سنة النشر يجب أن تكون 4 أرقام.");
+                return;
+            }
+
+            if (!language || language.length < 3) {
+                alert("⚠️ لغة الكتاب يجب أن تكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!pages || pages.length < 1) {
+                alert("⚠️ عدد الصفحات يجب أن يكون أكبر من 0.");
+                return;
+            }
+
+            if (!size || size.length < 1) {
+                alert("⚠️ حجم الملف يجب أن يكون أكبر من 0.");
+                return;
+            }
+
+            if (!format || format.length < 3) {
+                alert("⚠️ الصيغة يجب أن تكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!mainCategory) {
+                alert("⚠️ يرجى اختيار القسم الرئيسي.");
+                return;
+            }
+
+            if (categories[mainCategory].length > 0 && !subCategory) {
+                alert("⚠️ يرجى اختيار التصنيف الفرعي.");
+                return;
+            }
+
+            if (!description || description.length < 10) {
+                alert("⚠️ وصف الكتاب يجب أن يكون 10 أحرف على الأقل.");
+                return;
+            }
+
+            if (!coverImage || !['image/jpeg', 'image/png'].includes(coverImage.type)) {
+                alert("⚠️ يرجى تحميل صورة غلاف بصيغة JPEG أو PNG.");
+                return;
+            }
+
+            if (!bookFile || bookFile.type !== 'application/pdf') {
+                alert("⚠️ يرجى تحميل ملف بصيغة PDF.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('author', author);
+            formData.append('published_year', published_year);
+            formData.append('language', language);
+            formData.append('pages', pages);
+            formData.append('size', size);
+            formData.append('format', format);
+            formData.append('mainCategory', mainCategory);
+            if (subCategory) formData.append('subCategory', subCategory);
+            formData.append('description', description);
+            formData.append('coverImage', coverImage);
+            formData.append('bookFile', bookFile);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/books/create', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert("🎉 تم نشر الكتاب بنجاح!");
+                    document.getElementById('publishBookForm').reset();
+                    document.getElementById('coverPreview').style.display = 'none';
+                    document.getElementById('subCategoryGroup').style.display = 'none';
+                    loadBooks();
+                } else {
+                    alert(`⚠️ ${data.message || "خطأ في نشر الكتاب."}`);
+                }
+            } catch (error) {
+                alert("⚠️ حدث خطأ. حاول مرة أخرى.");
+            }
+        });
+
+        // معاينة صورة الغلاف في نموذج النشر
+        document.getElementById('coverImage').addEventListener('change', function() {
+            previewCoverImage(this, 'coverPreview');
+        });
+
+        // تحديث التصنيفات الفرعية في مودال التعديل
+        document.getElementById('editMainCategory').addEventListener('change', function() {
+            updateSubCategories(
+                document.getElementById('editMainCategory'),
+                document.getElementById('editSubCategory'),
+                document.getElementById('editSubCategoryGroup')
+            );
+        });
+
+        // فتح مودال التعديل
+        function openEditModal(id, title, author, description, image, mainCategory, subCategory, published_year, language, pages, size, format) {
+            document.getElementById('editBookId').value = id;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editAuthor').value = author;
+            document.getElementById('editDescription').value = description;
+            document.getElementById('editPublishedYear').value = published_year;
+            document.getElementById('editLanguage').value = language;
+            document.getElementById('editPages').value = pages;
+            document.getElementById('editSize').value = size;
+            document.getElementById('editFormat').value = format;
+            document.getElementById('editMainCategory').value = mainCategory;
+            updateSubCategories(
+                document.getElementById('editMainCategory'),
+                document.getElementById('editSubCategory'),
+                document.getElementById('editSubCategoryGroup'),
+                subCategory
+            );
+            const editCoverPreview = document.getElementById('editCoverPreview');
+            editCoverPreview.src = image || 'https://via.placeholder.com/150';
+            editCoverPreview.style.display = 'block';
+            document.getElementById('editBookModal').style.display = 'block';
+        }
+
+        // معاينة صورة الغلاف في مودال التعديل
+        document.getElementById('editCoverImage').addEventListener('change', function() {
+            previewCoverImage(this, 'editCoverPreview');
+        });
+
+        // تعديل كتاب
+        document.getElementById('editBookForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const id = document.getElementById('editBookId').value;
+            const title = document.getElementById('editTitle').value.trim();
+            const author = document.getElementById('editAuthor').value.trim();
+            const published_year = document.getElementById('editPublishedYear').value.trim();
+            const language = document.getElementById('editLanguage').value.trim();
+            const pages = document.getElementById('editPages').value.trim();
+            const size = document.getElementById('editSize').value.trim();
+            const format = document.getElementById('editFormat').value.trim();
+            const mainCategory = document.getElementById('editMainCategory').value;
+            const subCategory = document.getElementById('editSubCategory').value;
+            const description = document.getElementById('editDescription').value.trim();
+            const coverImage = document.getElementById('editCoverImage').files[0];
+            const bookFile = document.getElementById('editBookFile').files[0];
+
+            if (!title || title.length < 3) {
+                alert("⚠️ عنوان الكتاب يجب أن يكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!author || author.length < 3) {
+                alert("⚠️ اسم المؤلف يجب أن يكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!published_year || published_year.length < 4) {
+                alert("⚠️ سنة النشر يجب أن تكون 4 أرقام.");
+                return;
+            }
+
+            if (!language || language.length < 3) {
+                alert("⚠️ لغة الكتاب يجب أن تكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!pages || pages.length < 1) {
+                alert("⚠️ عدد الصفحات يجب أن يكون أكبر من 0.");
+                return;
+            }
+
+            if (!size || size.length < 1) {
+                alert("⚠️ حجم الملف يجب أن يكون أكبر من 0.");
+                return;
+            }
+
+            if (!format || format.length < 3) {
+                alert("⚠️ الصيغة يجب أن تكون 3 أحرف على الأقل.");
+                return;
+            }
+
+            if (!mainCategory) {
+                alert("⚠️ يرجى اختيار القسم الرئيسي.");
+                return;
+            }
+
+            if (categories[mainCategory].length > 0 && !subCategory) {
+                alert("⚠️ يرجى اختيار التصنيف الفرعي.");
+                return;
+            }
+
+            if (!description || description.length < 10) {
+                alert("⚠️ وصف الكتاب يجب أن يكون 10 أحرف على الأقل.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('title', title);
+            formData.append('author', author);
+            formData.append('published_year', published_year);
+            formData.append('language', language);
+            formData.append('pages', pages);
+            formData.append('size', size);
+            formData.append('format', format);
+            formData.append('mainCategory', mainCategory);
+            if (subCategory) formData.append('subCategory', subCategory);
+            formData.append('description', description);
+            if (coverImage) formData.append('coverImage', coverImage);
+            if (bookFile) formData.append('bookFile', bookFile);
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/books/edit/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert("🎉 تم تعديل الكتاب بنجاح!");
+                    document.getElementById('editBookModal').style.display = 'none';
+                    document.getElementById('editBookForm').reset();
+                    document.getElementById('editCoverPreview').style.display = 'none';
+                    document.getElementById('editSubCategoryGroup').style.display = 'none';
+                    loadBooks();
+                } else {
+                    alert(`⚠️ ${data.message || "خطأ في تعديل الكتاب."}`);
+                }
+            } catch (error) {
+                alert("⚠️ حدث خطأ. حاول مرة أخرى.");
+            }
+        });
+
+        // حذف كتاب
+        async function deleteBook(id) {
+            if (!confirm("هل أنت متأكد من حذف هذا الكتاب؟")) return;
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/books/delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert("🎉 تم حذف الكتاب بنجاح!");
+                    loadBooks();
+                } else {
+                    alert(`⚠️ ${data.message || "خطأ في حذف الكتاب."}`);
+                }
+            } catch (error) {
+                alert("⚠️ حدث خطأ. حاول مرة أخرى.");
+            }
+        }
+
+        // إغلاق مودال التعديل
+        document.getElementById('closeEditModal').onclick = function() {
+            document.getElementById('editBookModal').style.display = 'none';
+            document.getElementById('editBookForm').reset();
+            document.getElementById('editCoverPreview').style.display = 'none';
+            document.getElementById('editSubCategoryGroup').style.display = 'none';
+        };
+
+        // إغلاق المودال عند النقر خارجه
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.getElementById('editBookForm').reset();
+                document.getElementById('editCoverPreview').style.display = 'none';
+                document.getElementById('editSubCategoryGroup').style.display = 'none';
+            }
+        };
+
+        // تسجيل الخروج
+        function logout() {
+            localStorage.removeItem('token');
+            alert('👋 تم تسجيل الخروج بنجاح!');
+            window.location.href = 'login.html';
+        }
+
+        // تحميل الكتب عند تحميل الصفحة
+        window.onload = function() {
+            loadBooks();
+        };
+    </script>
+</body>
+</html>

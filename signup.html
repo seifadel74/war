@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - Digital Literature Library System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .left-side {
+            flex: 1;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+            url(images/10.jpeg) no-repeat center center/cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: slideIn 1.5s ease;
+            text-align: center;
+            padding: 20px;
+            filter: brightness(1.2) contrast(1.1) saturate(1.2);
+        }
+        .left-side h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        .left-side p {
+            font-size: 18px;
+            max-width: 400px;
+            color: #ccc;
+        }
+        .right-side {
+            flex: 1;
+            background-color: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .form-box {
+            background-color: #2c2c2c;
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: fadeIn 2s ease;
+            position: relative;
+        }
+        .form-box h2 {
+            color: #00b894;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background-color: #444;
+            color: white;
+        }
+        .password-container {
+            position: relative;
+        }
+        .password-container input {
+            padding-right: 40px;
+        }
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+        }
+        .form-box button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #00b894;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-box button:hover {
+            background-color: #019874;
+        }
+        .form-box a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .form-box a:hover {
+            color: #00b894;
+        }
+        .radio-group {
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            color: white;
+        }
+        .radio-group label {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-side, .right-side {
+                flex: none;
+                width: 100%;
+                height: 50%;
+            }
+            .form-box {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .form-box {
+                width: 95%;
+                padding: 15px;
+            }
+            .left-side h1 {
+                font-size: 28px;
+            }
+            .left-side p {
+                font-size: 16px;
+                max-width: 80%;
+            }
+        }
+        #avatarGallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+            gap: 18px;
+            justify-items: center;
+            margin-bottom: 18px;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #avatarGallery img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 2.5px solid #ccc;
+            object-fit: cover;
+            object-position: center top;
+            background: #222;
+            transition: border 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            display: block;
+            padding: 0;
+        }
+        #avatarGallery img.selected {
+            border: 3px solid #00b894 !important;
+            box-shadow: 0 0 0 3px #00b89433;
+        }
+        #avatarGallery img:hover {
+            border: 3px solid #019874;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-side">
+            <h1>مرحبًا بك في Digital Literature Library System</h1>
+            <p>انضم إلينا واكتشف عوالم جديدة بين الكتب. سجّل الآن لتبدأ رحلتك!</p>
+        </div>
+        <div class="right-side">
+            <div class="form-box">
+                <h2>إنشاء حساب جديد</h2>
+                <div id="avatarGallery" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                    <!-- سيتم ملء الصور ديناميكيًا -->
+                </div>
+                <input type="hidden" id="signupAvatarPath" name="avatar">
+                <form id="signupForm">
+                    <input type="text" name="username" id="username" placeholder="اسم المستخدم" required>
+                    <input type="email" name="email" id="email" placeholder="البريد الإلكتروني" required>
+                    <div class="password-container">
+                        <input type="password" name="password" id="password" placeholder="كلمة المرور" required>
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                    </div>
+                    <div class="password-container">
+                        <input type="password" name="confirm_password" id="confirmPassword" placeholder="تأكيد كلمة المرور" required>
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
+                    </div>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="userType" value="regular" checked>
+                            مستخدم عادي
+                        </label>
+                        <label>
+                            <input type="radio" name="userType" value="publisher">
+                            ناشر
+                        </label>
+                    </div>
+                    <button type="submit">إنشاء الحساب</button>
+                </form>
+                <a href="login.html">هل لديك حساب؟ تسجيل الدخول</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" style="
+        display: none;
+        position: fixed;
+        top: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 260px;
+        max-width: 90vw;
+        background: #222;
+        color: #fff;
+        padding: 18px 38px 18px 18px;
+        border-radius: 16px;
+        font-size: 18px;
+        z-index: 9999;
+        box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25), 0 2px 8px rgba(0,0,0,0.13);
+        border: 1.5px solid #00b894;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0;
+        transition: opacity 0.4s, top 0.4s;
+    "></div>
+
+    <script>
+        function togglePassword(fieldId) {
+            const password = document.getElementById(fieldId);
+            const icon = password.nextElementSibling;
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function showToast(message, color = '#00b894', icon = null) {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = '';
+            // أضف أيقونة إذا وجدت
+            if (icon) {
+                toast.innerHTML += `<span style="font-size:22px;display:inline-block;vertical-align:middle;">${icon}</span>`;
+            }
+            toast.innerHTML += `<span style="vertical-align:middle;">${message}</span>`;
+            toast.style.borderColor = color;
+            toast.style.display = 'flex';
+            toast.style.opacity = '1';
+            toast.style.top = '32px';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.top = '0px';
+                setTimeout(() => { toast.style.display = 'none'; toast.style.top = '32px'; }, 400);
+            }, 2200);
+        }
+
+        const avatarImages = [
+            'avatar/1.jpg',
+            'avatar/2.jpg',
+            'avatar/3.jpg',
+            'avatar/4.jpg',
+            'avatar/5.jpg',
+            'avatar/6.jpg',
+            // 'avatar/7.jpg',
+            // 'avatar/8.jpg',
+            // 'avatar/9.jpg',
+            // 'avatar/10.jpg',
+            // 'avatar/11.jpg',
+            // 'avatar/12.jpg',
+            // ... أضف باقي الصور هنا
+        ];
+
+        function renderAvatarGallery(selectedSrc = '') {
+            const gallery = document.getElementById('avatarGallery');
+            gallery.innerHTML = '';
+            avatarImages.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = "صورة بروفايل";
+                img.className = (src === selectedSrc) ? 'selected' : '';
+                img.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'images/avatar-placeholder.png';
+                };
+                img.onclick = function() {
+                    document.getElementById('signupAvatarPath').value = src;
+                    renderAvatarGallery(src); // لإظهار التحديد
+                };
+                gallery.appendChild(img);
+            });
+        }
+
+        // عند تحميل الصفحة، اعرض الصور
+        document.addEventListener("DOMContentLoaded", function () {
+            const avatarInput = document.getElementById('signupAvatarPath');
+            if (!avatarInput.value) {
+                avatarInput.value = avatarImages[0];
+            }
+            renderAvatarGallery(avatarInput.value);
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const avatar = document.getElementById('signupAvatarPath').value;
+            const userType = document.querySelector('input[name="userType"]:checked').value;
+
+            if (!avatar || avatar.trim() === '') {
+                showToast("يجب اختيار صورة بروفايل.", '#e74c3c', '⚠️');
+                return;
+            }
+
+            console.log('avatar value:', avatar);
+
+            // تحقق أمامي
+            const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+            if (!usernameRegex.test(username)) {
+                showToast("اسم المستخدم يجب أن يكون بين 3-20 حرفًا ويحتوي فقط على حروف، أرقام، أو _", '#e74c3c', '⚠️');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("من فضلك أدخل بريد إلكتروني صحيح.", '#e74c3c', '⚠️');
+                return;
+            }
+
+            if (password.length < 6) {
+                showToast("كلمة المرور يجب أن تكون 6 أحرف على الأقل.", '#e74c3c', '⚠️');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showToast("كلمتا المرور غير متطابقتين.", '#e74c3c', '⚠️');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/user/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&confirm_password=${encodeURIComponent(confirmPassword)}&avatar=${encodeURIComponent(avatar)}&role=${encodeURIComponent(userType)}`
+                });
+                const data = await response.json();
+                if (data.success) {
+                    showToast('تم إنشاء الحساب بنجاح! يرجى تسجيل الدخول.', '#00b894', '✅');
+                    window.location.href = 'login.html';
+                } else {
+                    showToast(`${data.message || "خطأ في إنشاء الحساب."}`, '#e74c3c', '⚠️');
+                }
+            } catch (error) {
+                showToast('حدث خطأ. حاول مرة أخرى.', '#e74c3c', '⚠️');
+            }
+        });
+    </script>
+</body>
+</html>
