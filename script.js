@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const footerLinks = document.querySelectorAll(".footer-links ul li a");
 
     // API Base URL (replace with production URL when deploying)
-    const API_BASE_URL = "http://127.0.0.1:8000/api";
+    const API_BASE_URL = "https://waraq.lovestoblog.com/api";
 
     // Search Functionality
     if (searchBox) {
