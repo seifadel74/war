@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا - Digital Literature Library System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #1a1a1a;
+            color: #f2f2f2;
+            direction: rtl;
+        }
+
+        .navbar {
+            background-color: #222;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            z-index: 1000;
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
+
+        .search-container {
+            background-color: seashell;
+            border-radius: 15px;
+            padding: 5px 10px;
+            width: 190px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            border: 2px solid #0e6655;
+            position: relative;
+        }
+
+        .search-icon {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            left: 10px;
+            cursor: pointer;
+        }
+
+        .search-box {
+            border: none;
+            background: none;
+            outline: none;
+            color: #222;
+            width: 200px;
+            font-size: 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            background: linear-gradient(45deg, #222, #222);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            color: #00ffcc;
+        }
+
+        .nav-item:hover {
+            background: linear-gradient(45deg, #00bfa5, #00897b);
+            transform: scale(1.1) translateX(5px);
+        }
+
+        .nav-item::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background-color: #ffffff;
+            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            height: 400px;
+            background: url(images/whoweare.jpg) no-repeat center center/cover;
+            background-attachment: fixed;
+            margin-top: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(5, 160, 153, 0.2));
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideIn 1s ease-in-out forwards 0.5s;
+        }
+
+        .banner-content h1 {
+            font-size: 42px;
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .banner-content p {
+            font-size: 20px;
+            color: #E8ECEC;
+            margin-top: 10px;
+        }
+
+        /* Contact Content Section */
+        .contact-content {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+            background: #2A2F2F;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-in-out forwards 0.7s;
+        }
+
+        .contact-form-container h2 {
+            font-size: 28px;
+            color: #05A099;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #6A8A82;
+            padding-bottom: 10px;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 15px;
+            color: #E8ECEC;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            border: 1px solid #6A8A82;
+            border-radius: 8px;
+            background: #3A4040;
+            color: #f2f2f2;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #05A099;
+            box-shadow: 0 0 8px rgba(5, 160, 153, 0.6);
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #05A099, #6A8A82);
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            align-self: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(5, 160, 153, 0.5);
+        }
+
+        /* Contact Info Cards */
+        .contact-info-cards {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .info-card {
+            background: #2A2F2F;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-in-out forwards 0.9s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-card i {
+            font-size: 40px;
+            color: #6A8A82;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .info-card:hover i {
+            color: #05A099;
+        }
+
+        .info-card p {
+            font-size: 16px;
+            color: #E8ECEC;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        /* Chat Button */
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #05A099, #6A8A82);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite ease-in-out;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .chat-button::after {
+            content: "دردش مع Digital Literature Library System";
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: #2A2F2F;
+            color: #FFFFFF;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .chat-button:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #05A099, #2A2F2F);
+            color: #FFFFFF;
+            padding: 40px 0;
+            text-align: center;
+            font-family: "Cairo", sans-serif;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-content,
+        .footer-links,
+        .footer-contact {
+            flex: 1;
+            padding: 0 20px;
+            min-width: 200px;
+        }
+
+        .footer-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #E8ECEC;
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin: 5px 0;
+        }
+
+        .footer-links ul li a {
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: #E8ECEC;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        .footer-social {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background: #2A2F2F;
+            color: #05A099;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #05A099;
+            color: #FFFFFF;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 10px;
+            font-size: 14px;
+        }
+
+        .footer-bottom span {
+            color: #05A099;
+            font-weight: bold;
+        }
+
+        /* Scroll Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #05A099;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .scroll-top.visible {
+            display: block;
+        }
+
+        .scroll-top:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar { padding: 10px 0; }
+            .nav-links { justify-content: center; }
+            .hero-banner { height: 350px; }
+            .banner-content h1 { font-size: 32px; }
+            .banner-content p { font-size: 16px; }
+            .contact-content { flex-direction: column; align-items: center; }
+            .contact-form-container, .contact-info-cards { width: 100%; }
+            .info-card { width: 150px; height: 150px; }
+        }
+
+        @media (max-width: 576px) {
+            .search-container { width: 150px; }
+            .search-box { width: 120px; }
+            .nav-item { font-size: 16px; padding: 8px 12px; }
+            .hero-banner { height: 250px; }
+            .banner-content h1 { font-size: 24px; }
+            .banner-content p { font-size: 14px; }
+            .contact-form-container h2 { font-size: 22px; }
+            .form-group input, .form-group textarea { font-size: 14px; }
+            .submit-btn { font-size: 14px; padding: 10px 20px; }
+            .info-card i { font-size: 30px; }
+            .info-card p { font-size: 14px; }
+            .chat-button { width: 50px; height: 50px; font-size: 20px; bottom: 15px; right: 15px; }
+            .chat-button::after { font-size: 10px; padding: 4px 8px; bottom: 60px; }
+            .footer { padding-bottom: 70px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="بحث...">
+            <img src="images/search1.gif.gif" alt="بحث" class="search-icon">
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i> الرئيسية</a>
+            <a href="books.html" class="nav-item" target="_blank"><i class="fas fa-book-open"></i> أقسام الكتب</a>
+            <a href="novels.html" class="nav-item" target="_blank"><i class="fas fa-feather-alt"></i> أقسام الروايات</a>
+            <a href="stories.html" class="nav-item" target="_blank"><i class="fas fa-scroll"></i> أقسام القصص</a>
+            <a href="references.html" class="nav-item" target="_blank"><i class="fas fa-clipboard"></i> المراجع</a>
+            <a href="authors.html" class="nav-item" target="_blank"><i class="fas fa-users"></i> المؤلفون</a>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="banner-content">
+            <h1>تواصل معنا الآن</h1>
+            <p>نحن هنا لمساعدتك في أي وقت</p>
+        </div>
+    </section>
+
+    <!-- Contact Content Section -->
+    <section class="contact-content">
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+            <h2>أرسل رسالتك</h2>
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <label for="name">الاسم الكامل</label>
+                    <input type="text" id="name" name="name" required placeholder="أدخل اسمك" aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" required placeholder="أدخل بريدك الإلكتروني" aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="message">الرسالة</label>
+                    <textarea id="message" name="message" required placeholder="اكتب رسالتك هنا" aria-required="true"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">إرسال</button>
+            </form>
+        </div>
+
+        <!-- Contact Info Cards -->
+        <div class="contact-info-cards">
+            <div class="info-card">
+                <i class="fas fa-envelope"></i>
+                <p>info@library.com</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-phone"></i>
+                <p>0000000</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>القاهرة، مصر</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Button -->
+    <button id="chat-button" class="chat-button" title="دردش مع Digital Literature Library System" aria-label="فتح صفحة الدردشة">
+        <i class="fas fa-message"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <h2 class="footer-title">Digital Literature Library System</h2>
+                <p>اكتشف آلاف الكتب الإلكترونية واستمتع بتجربة قراءة ممتعة.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="books.html">الكتب</a></li>
+                    <li><a href="aboutus.html">من نحن</a></li>
+                    <li><a href="contacts.html">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>تواصل معنا</h3>
+                <p><i class="fas fa-envelope"></i> info@library.com</p>
+                <p><i class="fas fa-phone"></i> 0000000</p>
+                <p><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</p>
+            </div>
+        </div>
+        <button id="scrollTop" class="scroll-top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة © 2025 | <span>Digital Literature Library System</span></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Smooth scroll for anchor links
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 70,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Add active class to current nav link
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Animate elements on scroll
+            const animatedElements = document.querySelectorAll('.banner-content, .contact-form-container, .contact-info-cards, .footer');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Chat button functionality
+            const chatButton = document.getElementById('chat-button');
+            chatButton.addEventListener('click', () => {
+                window.location.href = 'chat.html';
+            });
+
+            // Contact form submission (mock for now)
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                alert('شكرًا على رسالتك! سنتواصل معك قريبًا. (هذا مثال، الرسالة لم ترسل فعليًا)');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>

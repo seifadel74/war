@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Literature library system</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+    <body>
+        <!--للتنقل بين الاقسام-->
+        <nav class="navbar">
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="بحث...">
+                <img src="images/search1.gif.gif" alt="بحث" class="search-icon">
+            </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i> الرئيسية</a>
+            <a href="books.html" class="nav-item" target="_blank"><i class="fas fa-book-open"></i> أقسام الكتب</a>
+            <a href="novels.html" class="nav-item" target="_blank"><i class="fas fa-feather-alt"></i> أقسام الروايات</a> 
+            <a href="stories.html" class="nav-item" target="_blank"><i class="fas fa-scroll"></i> أقسام القصص</a>
+            <a href="references.html" class="nav-item" target="_blank"><i class="fas fa-clipboard "></i> المراجع</a>
+            <a href="authors.html" class="nav-item" target="_blank"><i class="fas fa-users"></i> المؤلفون</a>
+            <a href="publisher_profile.html" class="nav-item publisher-icon hidden" title="لوحة تحكم الناشر">
+                <i class="fas fa-user-tie"></i> لوحة تحكم الناشر
+            </a>
+        </div>
+    <!--ازرار تسجيل وانشاء حساب-->
+        <div class="auth-buttons">
+    <a href="login.html" class="login-btn">
+        <span class="icon">👤</span> تسجيل الدخول
+    </a>
+    <a href="signup.html" class="signup-btn">
+        انشاء حساب
+    </a>
+    <a href="profile.html" id="profileNavIcon">
+        <img id="navProfileImg" src="images/avatar-placeholder.png" alt="صورة البروفايل" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+    </a>
+</div>
+
+</nav>
+<!--banner-->
+        <div class="banner">
+            <img src="images/pann.png" alt="Discover New Worlds Through Books">
+        </div>
+<!--logo-->
+        <div class="logo-container">
+    <img src="images/logo.png" alt="Digital Literature Library System Logo" class="logo">
+</div>
+<!-- Chat Toggle Button -->
+<button id="chat-button" class="chat-button" title="دردش مع Digital Literature Library System" aria-label="فتح صفحة الدردشة" onclick="openChatBot()">
+    <i class="fas fa-message"></i>
+</button>
+
+<script>
+    function openChatBot() {
+        const chatBotLink = "https://waraq-chat-bot.streamlit.app/";
+        window.open(chatBotLink, "_blank"); // يفتح الرابط في نافذة جديدة
+    }
+</script>
+<!--ازرار للتنقل بين اقسام-->
+</div> </header>
+<div class="books-section">
+    <div class="book-category">
+        <img src="images/book2.gif.gif" alt="أحدث الاصدارات">
+        <h3><a href="#latest-books">أحدث الأصدارات</a></h3> 
+    </div>
+    <div class="book-category">
+        <img src="images/books1.gif.gif" alt="أشهر الكتب">
+        <h3><a href="#famous-books">أشهر الكتب</a></h3> 
+    </div>
+    <div class="book-category">
+        <img src="images/book3.gif.gif" alt="الأشهر اليوم">
+        <h3><a href="#most-read">الأكثر قراءة</a></h3> 
+    </div>
+</div>
+<div class="books-container"></div>
+<!-- سلايدر الكتب المقترحة -->
+<div class="book-slider-container">
+    <button class="prev-btn">❮</button>
+    <div id="book-slider" class="book-slider"></div>
+    <button class="next-btn">❯</button>
+</div>
+<!--الاسئله الشائعه-->
+    <button id="faq-btn" class="faq-button"> الأسئلة الشائعة</button>
+<div id="faq-container" class="faq-card">
+    <div class="faq-header">
+        <h2>الأسئلة الشائعة</h2>
+        <span id="close-faq" class="close-btn">&times;</span>
+    </div>
+    <div class="faq-content">
+        <div class="faq-item">
+            <h3>كيف أبحث عن كتاب معين؟</h3>
+            <p>يمكنك استخدام شريط البحث في أعلى الصفحة للبحث عن اسم الكتاب أو اسم المؤلف.</p>
+        </div>
+        <div class="faq-item">
+            <h3>هل يمكنني تحميل الكتب مجانًا؟</h3>
+            <p> نعم، بعض الكتب متاحة مجانًا، بينما تتطلب كتب أخرى اشتراكًا للوصول إليها.</p>
+        </div>
+        <div class="faq-item">
+            <h3>هل يمكنني مزامنة قراءتي بين الأجهزة المختلفة؟</h3>
+            <p>نعم، بمجرد تسجيل الدخول بحسابك، ستتمكن من متابعة القراءة من حيث توقفت على أي جهاز.</p>
+        </div>
+        <div class="faq-item">
+            <h3>ماذا أفعل إذا واجهت مشكلة في تحميل كتاب؟</h3>
+            <p>حاول تحديث الصفحة أو تجربة متصفح آخر، وإذا استمرت المشكلة، يرجى التواصل مع فريق الدعم الفني.
+            </p>
+        </div>
+    </div>
+</div>
+<!--كود جافا ليها-->
+<script> document.addEventListener("DOMContentLoaded", function () {
+    const faqBtn = document.getElementById("faq-btn");
+    const faqContainer = document.getElementById("faq-container");
+    const closeFaq = document.getElementById("close-faq");
+
+    faqBtn.addEventListener("click", function () {
+        faqContainer.classList.add("show");
+    });
+
+    closeFaq.addEventListener("click", function () {
+        faqContainer.classList.remove("show");
+    });
+
+    // إغلاق الكارد عند النقر خارج النافذة
+    window.addEventListener("click", function (event) {
+        if (event.target === faqContainer) {
+            faqContainer.classList.remove("show");
+        }
+    });
+});
+    </script>
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <h2 class="footer-title"> Digital Literature Library System</h2>
+                <p>اكتشف آلاف الكتب الإلكترونية واستمتع بتجربة قراءة ممتعة.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="books.html">الكتب</a></li>
+                    <li><a href="aboutus.html">من نحن</a></li>
+                    <li><a href="contacts.html">اتصل بنا</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-contact">
+                <h3>تواصل معنا</h3>
+                <p><i class="fas fa-envelope"></i> info@library.com</p>
+                <p><i class="fas fa-phone"></i>0000000</p>
+                <p><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</p>                                                 
+            </div>
+        </div>
+    
+        <button id="scrollTop" class="scroll-top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة &copy; 2025 | <span>Digital Literature Library System</span></p>
+        </div>
+    </footer>
+    
+<script>
+  // عند تحميل الصفحة، غيّر صورة البروفايل إذا كان هناك صورة للمستخدم
+  document.addEventListener('DOMContentLoaded', function() {
+    var img = document.getElementById('navProfileImg');
+    var userImg = localStorage.getItem('userImage') || sessionStorage.getItem('userImage') || localStorage.getItem('profileImage') || sessionStorage.getItem('profileImage');
+    if (userImg && userImg.length > 5) {
+      img.src = userImg;
+    }
+  });
+</script>
+</body>
+</html>
